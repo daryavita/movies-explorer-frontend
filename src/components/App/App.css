@@ -1,8 +1,12 @@
-.app__container {
+.page {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   max-width: 1280px;
   min-height: 100%;
   min-width: 320px;
+}
+
+.page__content {
+  flex: 1 0 auto;
 }
