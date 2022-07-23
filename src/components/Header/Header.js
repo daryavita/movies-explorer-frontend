@@ -10,7 +10,7 @@ function Header({main}) {
   return (
     <>
       <header className={headerClassName}>
-            <img className="header__logo" src={logo} alt="logo" />
+            <Link to="/"><img className="header__logo" src={logo} alt="logo" /></Link>
             <Navigation main={main} />
       </header>
     </>
