@@ -4,7 +4,7 @@
     justify-content: center;
     padding: 0;
     margin: 70px auto;
-    max-width: 396px;
+    width: 396px;
 }
 
 .auth-form__logo {

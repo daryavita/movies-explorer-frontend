@@ -1,5 +1,5 @@
 import "./Navigation.css";
-import { Link, NavLink} from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 
 function Navigation({ main }) {
@@ -29,35 +29,35 @@ function Navigation({ main }) {
         </Link>
       </nav>
 
-        <nav className={main ? "no-display" : "navigation navigation_type_all"}>
-          <NavLink
-            to="/movies"
-            activeClassName="navigation__link_active"
-            className="navigation__link navigation__link_hover"
-          >
-            Фильмы
-          </NavLink>
-          <NavLink
-            to="/saved-movies"
-            activeClassName="navigation__link_active"
-            className="navigation__link navigation__link_hover"
-          >
-            Сохраненные фильмы
-          </NavLink>
-          <NavLink
-            to="/profile"
-            activeClassName="navigation__link_active"
-            className="navigation__link navigation__link_type__acc navigation__link_hover"
-          >
-            Аккаунт
-            <button className="navigation__btn"></button>
-          </NavLink>
-        </nav>
+      <nav className={main ? "no-display" : "navigation navigation_type_all"}>
+        <NavLink
+          to="/movies"
+          activeClassName="navigation__link_active"
+          className="navigation__link navigation__link_hover"
+        >
+          Фильмы
+        </NavLink>
+        <NavLink
+          to="/saved-movies"
+          activeClassName="navigation__link_active"
+          className="navigation__link navigation__link_hover"
+        >
+          Сохраненные фильмы
+        </NavLink>
+        <NavLink
+          to="/profile"
+          activeClassName="navigation__link_active"
+          className="navigation__link navigation__link_type__acc navigation__link_hover"
+        >
+          Аккаунт
+          <button className="navigation__btn"></button>
+        </NavLink>
+      </nav>
 
-        <button
-          className={main ? "no-display" : "navigation__menu-btn"}
-          onClick={openBurgerMenu}
-        ></button>
+      <button
+        className={main ? "no-display" : "navigation__menu-btn"}
+        onClick={openBurgerMenu}
+      ></button>
 
       <div
         className={

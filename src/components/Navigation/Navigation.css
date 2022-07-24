@@ -96,7 +96,7 @@
 
 .navigation__burger-menu {
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     background: rgba(0, 0, 0, 0.3);
     bottom: 0;
     cursor: pointer;

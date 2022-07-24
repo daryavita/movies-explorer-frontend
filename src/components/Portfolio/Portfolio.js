@@ -1,47 +1,9 @@
-import Title from "../Title/Title";
 import "./Portfolio.css";
 
 function Portfolio() {
   return (
     <section className="portfolio">
-      <Title title="Студент" />
-      <div className="portfolio__container">
-        <div className="portfolio__info">
-          <p className="portfolio__title">Дарья</p>
-          <p className="portfolio__subtitle">Фронтенд-разработчица, 24 года</p>
-          <p className="portfolio__description">
-            Я живу в Санкт-Петербурге и закончила тут Политех Петра по
-            экономической специальности. Сначала работала в сфере SEO, но
-            поняла, что это не для меня и теперь погружаюсь в мир
-            веб-разработки. Люблю удобные приятные интерфейсы и своего кота.{" "}
-          </p>
-        </div>
-        <div className="portfolio__photo"></div>
-      </div>
-
-      <ul className="portfolio__social-links">
-        <li>
-          <a
-            className="portfolio__social-link"
-            href="https://www.facebook.com/dashkapv"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Facebook
-          </a>
-        </li>
-        <li>
-          <a
-            className="portfolio__social-link"
-            href="https://github.com/daryavita"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Github
-          </a>
-        </li>
-      </ul>
-      <p className="portfolio__sub">Портфолио</p>
+      <h3 className="portfolio__title">Портфолио</h3>
       <ul className="portfolio__project-links">
         <li className="portfolio__project-link">
           <a

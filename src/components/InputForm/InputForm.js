@@ -1,9 +1,6 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import "./InputForm.css";
 
-function InputForm({caption, type, name, minLength}) {
-
+function InputForm({ caption, type, name, minLength, placeholder }) {
   return (
     <div className="input__container">
       <p className="input__caption">{caption}</p>
@@ -13,6 +10,7 @@ function InputForm({caption, type, name, minLength}) {
         className="input"
         required
         minLength={minLength}
+        placeholder={placeholder}
         maxLength="40"
       />
       <span className="input__error">Что-то пошло не так...</span>
