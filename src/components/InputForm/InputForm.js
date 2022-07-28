@@ -1,6 +1,8 @@
+import { useState } from "react";
 import "./InputForm.css";
 
-function InputForm({ caption, type, name, minLength, placeholder }) {
+function InputForm({ caption, type, name, minLength, placeholder, onChange, value, errorMessage, pattern }) {
+
   return (
     <div className="input__container">
       <p className="input__caption">{caption}</p>
@@ -12,8 +14,11 @@ function InputForm({ caption, type, name, minLength, placeholder }) {
         minLength={minLength}
         placeholder={placeholder}
         maxLength="40"
+        onChange={onChange}
+        value={value}
+        pattern={pattern}
       />
-      <span className="input__error">Что-то пошло не так...</span>
+      <span className="input__error">{errorMessage}</span>
     </div>
   );
 }
