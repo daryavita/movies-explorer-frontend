@@ -1,0 +1,108 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+    margin: 74px auto;
+    max-width: 410px;
+}
+
+.profile__title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.profile__form {
+    margin: 123px 0 0;
+    padding: 0;
+}
+
+.profile__form-fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.profile__input-container {
+    display: flex;
+    justify-content: space-between;
+    white-space: nowrap;
+}
+
+.profile__input-name {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+}
+
+.profile__input {
+    width: 70%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    background: #FAFAFA;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: right;
+    outline: none;
+}
+
+.profile__line {
+    border: none;
+    background-color: #E8E8E8;
+    height: 1px;
+    width: 100%;
+    margin: 16px 0 17px;
+    padding: 0;
+}
+
+.profile__btn-edit {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    align-items: center;
+    text-align: center;
+    border: none;
+    background: none;
+    margin: 220px 0 0;
+    padding: 0;
+}
+
+.profile__btn-edit:hover {
+    opacity: 0.8;
+    cursor: pointer;
+    transition: 0.2s ease-out;
+}
+
+.profile__signout {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: #EE3465;
+    text-decoration: none;
+    margin: 16px 0 0;
+    padding: 0;
+}
+
+.profile__signout:hover {
+    opacity: 0.8;
+    cursor: pointer;
+    transition: 0.2s ease-out;
+}
+
+@media screen and (max-width: 660px) {
+    .profile {
+        max-width: 260px;
+    }
+}
