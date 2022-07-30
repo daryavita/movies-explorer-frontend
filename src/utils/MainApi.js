@@ -7,7 +7,7 @@ const checkResponse = (response) => {
   
     return response.json().then((res) => {
         console.log('err-api', res.message)
-    //   throw res.message[0].messages[0].message;
+        throw res.message;
     });
   };
   
@@ -33,8 +33,8 @@ const checkResponse = (response) => {
     }).then(checkResponse);
   };
   
-  export const getContent = (token) => {
-    return fetch(`${MAIN_API_BASE_URL}/movies`, {
+  export const getUser = (token) => {
+    return fetch(`${MAIN_API_BASE_URL}/users/me`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -43,3 +43,15 @@ const checkResponse = (response) => {
       },
     }).then((res) => res.json());
   };
+
+  export const updateUserData = (token, name, email) => {
+    return fetch(`${MAIN_API_BASE_URL}/users/me`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ name, email }),
+    }).then(checkResponse);
+  }

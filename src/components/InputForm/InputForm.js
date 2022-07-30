@@ -1,15 +1,15 @@
 import { useState } from "react";
 import "./InputForm.css";
 
-function InputForm({ caption, type, name, minLength, placeholder, onChange, value, errorMessage, pattern }) {
+function InputForm({ caption, type, name, minLength, placeholder, onChange, value, errorMessage, pattern, profile}) {
 
   return (
-    <div className="input__container">
-      <p className="input__caption">{caption}</p>
+    <div className={profile ? "input__container_profile" : "input__container"}>
+      <p className={profile ? "input__caption_profile" : "input__caption"}>{caption}</p>
       <input
         type={type}
         name={name}
-        className="input"
+        className={profile ? "input_profile" : "input"}
         required
         minLength={minLength}
         placeholder={placeholder}
@@ -18,7 +18,7 @@ function InputForm({ caption, type, name, minLength, placeholder, onChange, valu
         value={value}
         pattern={pattern}
       />
-      <span className="input__error">{errorMessage}</span>
+      <span className={profile ? "input__error_profile" : "input__error"}>{errorMessage}</span>
     </div>
   );
 }

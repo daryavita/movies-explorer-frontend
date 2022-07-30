@@ -43,13 +43,49 @@
     color: #EE3465;
     padding: 0;
     margin: 6px 0 0;
-    display: none;
-}
-
-.input__error_visible {
-    display: block;
 }
 
 .input_color_red {
     color: #EE3465;
+}
+
+.input__container_profile {
+    display: grid;
+    grid-template-areas:
+        "name input"
+        "error error";
+}
+
+.input_profile {
+    border: none;
+    margin: 0;
+    padding: 0;
+    background: #FAFAFA;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: right;
+    outline: none;
+    grid-area: input;
+}
+
+.input__caption_profile  {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    color: black;
+    grid-area: name;
+}
+
+.input__error_profile  {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #EE3465;
+    padding: 0;
+    margin: 6px 0 0;
+    grid-area: error;
 }
