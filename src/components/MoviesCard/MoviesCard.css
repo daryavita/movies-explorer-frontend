@@ -71,11 +71,9 @@
 }
 
 .movies-card__img {
-    background-image: url(../../images/pic__COLOR_pic.svg);
-    background-repeat: no-repeat;
-    background-size: cover;
     width: 100%;
     height: 203px;
+    object-fit: cover;
 }
 
 .no-display {

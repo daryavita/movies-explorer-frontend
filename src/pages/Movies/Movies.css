@@ -1,27 +1,10 @@
-.search {
-    margin: 80px 70px 10px;
+.movies__error {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    margin: 70px 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.search__line {
-    border: none;
-    background-color: #E8E8E8;
-    height: 1px;
-    max-width: 1140px;
-    margin: 40px 0 0;
-    padding: 0;
-}
-
-@media screen and (max-width: 768px) {
-    .search {
-        margin: 80px 30px 10px;
-    }
-}
-
-@media screen and (max-width: 660px) {
-    .search {
-        margin: 80px 14px 50px;
-    }
+    color: #3456f3;
 }

@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { MOVIES_API_BASE_URL } from "../../utils/MoviesApi";
 import "./MoviesCard.css";
 
-function MoviesCard({ isSaved }) {
+function MoviesCard({ isSaved, movie }) {
   const [isLiked, setIsLiked] = useState(false);
   const saveBtnClassName = `movies-card__save-btn ${
     isLiked ? "movies-card__save-btn_on" : "movies-card__save-btn_off"
@@ -11,12 +12,16 @@ function MoviesCard({ isSaved }) {
     setIsLiked(!isLiked);
   };
 
+  // console.log('movie', movie)
+
+  const durationMovie = Math.trunc(movie.duration/60) + 'ч ' + movie.duration % 60 + 'м'
+
   return (
     <article className="movies-card">
       <div className="movies-card__info">
         <div>
-          <h3 className="movies-card__title">33 слова о дизайне</h3>
-          <p className="movies-card__duration">1ч 47м</p>
+          <h3 className="movies-card__title">{movie.nameRU}</h3>
+          <p className="movies-card__duration">{durationMovie}</p>
         </div>
         <button
           className={isSaved ? "no-display" : saveBtnClassName}
@@ -26,7 +31,7 @@ function MoviesCard({ isSaved }) {
           className={isSaved ? "movies-card__delete-btn" : "no-display"}
         ></button>
       </div>
-      <div className="movies-card__img"></div>
+      <img className="movies-card__img" src={MOVIES_API_BASE_URL + movie.image.url} alt={movie.nameRU.toLowerCase()}></img>
     </article>
   );
 }
