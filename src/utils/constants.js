@@ -14,3 +14,5 @@ export const getLoadMovies = (width) => {
   }
   return 2;
 };
+
+export const defaultImg = "https://webstockreview.net/images/cinema-clipart-movie-maker-8.png"

@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import "./Movies.css";
 import { filterMovies } from "../../utils/filterMovies";
 
-function Movies({ loggedIn }) {
+function Movies({ loggedIn, saveMovie, deleteSaveMovie, savedMovies }) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState();
   const [filteredMovies, setFilteredMovies] = useState([]);
@@ -43,6 +43,7 @@ function Movies({ loggedIn }) {
       setError("Вы еще ничего не искали");
     }
   }, []);
+  
 
   const fetchMovies = () => {
     setIsLoading(true);
@@ -66,6 +67,8 @@ function Movies({ loggedIn }) {
 
     if (searchResult) {
       localStorage.setItem("searchResult", JSON.stringify(searchResult));
+      localStorage.setItem("keyWord", JSON.stringify(keyWord));
+      localStorage.setItem("isShortMovies", JSON.stringify(isShortMovies));
       return setFilteredMovies(searchResult);
     }
     setError("Ничего не найдено :(");
@@ -83,7 +86,7 @@ function Movies({ loggedIn }) {
           <Preloader disable={true} />
         )}
         <p className="movies__error">{error}</p>
-        <MoviesCardList filteredMovies={filteredMovies} />
+        <MoviesCardList movies={filteredMovies} saveMovie={saveMovie} deleteSaveMovie={deleteSaveMovie} savedMovies={savedMovies}/>
       </main>
       <Footer />
     </>

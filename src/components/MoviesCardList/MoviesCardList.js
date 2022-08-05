@@ -3,9 +3,8 @@ import useCurrentWidth from "../../hooks/useCurrentWidth";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { getInitialMovies, getLoadMovies } from "../../utils/constants";
 import "./MoviesCardList.css";
-import { useEffect } from "react";
 
-function MoviesCardList({ isSaved, filteredMovies }) {
+function MoviesCardList({ isSaved, movies, saveMovie, deleteSaveMovie, savedMovies}) {
   const width = useCurrentWidth();
 
   const [visibleMoviesCount, setVisibleMoviesCount] = useState(
@@ -20,20 +19,18 @@ function MoviesCardList({ isSaved, filteredMovies }) {
     <>
       <section className="cards-list">
         <ul className="cards-list__container">
-          {filteredMovies.slice(0, visibleMoviesCount).map((movie) => (
+          {movies.slice(0, visibleMoviesCount).map((movie) => (
             <MoviesCard
-              key={movie.id}
+              key={isSaved ? movie._id : movie.id}
               movie={movie}
-              // cardClick={onCardClick}
-              // onCardLike={onCardLike}
-              // onCardDelete={onCardDelete}
+              isSaved={isSaved}
+              deleteSaveMovie={deleteSaveMovie}
+              saveMovie={saveMovie}
+              savedMovies={savedMovies}
             />
           ))}
-          {/* <MoviesCard isSaved={isSaved} />
-          <MoviesCard isSaved={isSaved} />
-          <MoviesCard isSaved={isSaved} /> */}
         </ul>
-        {visibleMoviesCount < filteredMovies.length && (
+        {visibleMoviesCount < movies.length && (
           <button className="cards-list__btn" onClick={handleLoadMore}>
             Еще
           </button>

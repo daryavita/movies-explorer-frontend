@@ -3,6 +3,7 @@ export const filterMovies = (movies, keyWord, isShortMovies) => {
   if (isShortMovies) {
     return (filtredMoviesArr = getShortMovies(filtredMoviesArr));
   } else {
+    console.log('filtredMoviesArr', filtredMoviesArr)
     return filtredMoviesArr;
   }
 };
