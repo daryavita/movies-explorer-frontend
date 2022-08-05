@@ -12,7 +12,7 @@ import { filterMovies } from "../../utils/filterMovies";
 
 function Movies({ loggedIn, saveMovie, deleteSaveMovie, savedMovies }) {
   const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [error, setError] = useState("");
 
@@ -43,10 +43,8 @@ function Movies({ loggedIn, saveMovie, deleteSaveMovie, savedMovies }) {
       setError("Вы еще ничего не искали");
     }
   }, []);
-  
 
   const fetchMovies = () => {
-    setIsLoading(true);
     moviesApi
       .getMovies()
       .then((res) => {
@@ -57,20 +55,21 @@ function Movies({ loggedIn, saveMovie, deleteSaveMovie, savedMovies }) {
         setError(
           "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
         )
-      )
-      .finally(setIsLoading(false));
+      );
   };
 
   const searchMovies = (keyWord, isShortMovies) => {
     setError("");
+    setIsLoading(true);
     const searchResult = filterMovies(movies, keyWord, isShortMovies);
-
     if (searchResult) {
       localStorage.setItem("searchResult", JSON.stringify(searchResult));
       localStorage.setItem("keyWord", JSON.stringify(keyWord));
       localStorage.setItem("isShortMovies", JSON.stringify(isShortMovies));
+      setIsLoading(false);
       return setFilteredMovies(searchResult);
     }
+    setIsLoading(false);
     setError("Ничего не найдено :(");
     setFilteredMovies([]);
   };
@@ -80,13 +79,14 @@ function Movies({ loggedIn, saveMovie, deleteSaveMovie, savedMovies }) {
       <Header loggedIn={loggedIn} />
       <main className="page__content">
         <SearchForm searchMovies={searchMovies} />
-        {isLoading ? (
-          <Preloader disable={false} />
-        ) : (
-          <Preloader disable={true} />
-        )}
+        {isLoading ? <Preloader /> : ""}
         <p className="movies__error">{error}</p>
-        <MoviesCardList movies={filteredMovies} saveMovie={saveMovie} deleteSaveMovie={deleteSaveMovie} savedMovies={savedMovies}/>
+        <MoviesCardList
+          movies={filteredMovies}
+          saveMovie={saveMovie}
+          deleteSaveMovie={deleteSaveMovie}
+          savedMovies={savedMovies}
+        />
       </main>
       <Footer />
     </>
