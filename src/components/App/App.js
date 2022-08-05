@@ -19,13 +19,13 @@ import { useEffect } from "react";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { filterMovies } from "../../utils/filterMovies";
-import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   console.log("savedMovies app", savedMovies);
 
   const history = useHistory();
@@ -36,6 +36,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     if (localStorage.getItem("jwt")) {
       const jwt = localStorage.getItem("jwt");
       mainApi
@@ -48,7 +49,8 @@ function App() {
           setSavedMovies(res);
           localStorage.setItem("savedMovies", JSON.stringify(res));
         })
-        .catch((err) => console.log("errrr", err));
+        .catch((err) => console.log("errrr", err))
+        .finally(setIsLoading(false));
     }
   }, []);
 
@@ -57,7 +59,6 @@ function App() {
       console.log("res auth", res);
       history.push("/movies");
     });
-    // .catch((err) => console.log("errReg", err.message));
   };
 
   const handleLogin = (email, password) => {
@@ -69,7 +70,6 @@ function App() {
       tokenCheck();
       history.push("/movies");
     });
-    // .catch((err) => console.log("err.message", err.message));
   };
 
   const tokenCheck = () => {
@@ -106,25 +106,27 @@ function App() {
 
   const handleUpdateUser = (currentUser) => {
     const jwt = localStorage.getItem("jwt");
-    mainApi
+    return mainApi
       .updateUserData(jwt, currentUser.name, currentUser.email)
       .then((res) => {
         setCurrentUser({
           name: res.name,
           email: res.email,
         });
-      })
-      .catch((err) => console.log(`Ошибка ${err}`));
+      });
   };
 
   const searchSaveMovies = (keyWord, isShortMovies) => {
+    setIsLoading(true);
     setError("");
     const localSavedMovies = JSON.parse(localStorage.getItem("savedMovies"));
     console.log("localSavedMovies", localSavedMovies);
     const searchResult = filterMovies(localSavedMovies, keyWord, isShortMovies);
     if (searchResult) {
+      setIsLoading(false);
       return setSavedMovies(searchResult);
     }
+    setIsLoading(false);
     setError("Ничего не найдено :(");
     setSavedMovies([]);
   };
@@ -183,6 +185,7 @@ function App() {
               handleUpdateUser={handleUpdateUser}
               signOut={signOut}
               loggedIn={loggedIn}
+              error={error}
             />
           </ProtectedRoute>
 
@@ -193,6 +196,7 @@ function App() {
               error={error}
               searchSaveMovies={searchSaveMovies}
               deleteSaveMovie={deleteSaveMovie}
+              isLoading={isLoading}
             />
           </ProtectedRoute>
 

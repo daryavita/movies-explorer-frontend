@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
-import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import InputForm from "../../components/InputForm/InputForm";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
@@ -11,24 +9,50 @@ import "./Profile.css";
 
 function Profile({ handleUpdateUser, signOut, loggedIn }) {
   const currentUser = useContext(CurrentUserContext);
-  console.log("currentUser", currentUser);
-
-
-  const { values, setValues, handleChange, errors, isValid } = useFormWithValidation();
-  const [errorText, setErrorText] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
+  const [statusText, setStatusText] = useState("");
+  const [disabled, setDisabled] = useState(true);
+  const { values, setValues, handleChange, errors, isValid } =
+    useFormWithValidation();
 
   useEffect(() => {
     setValues(currentUser);
   }, [currentUser, setValues]);
 
+  useEffect(() => {
+    if (
+      values.name === currentUser.name &&
+      values.email === currentUser.email
+    ) {
+      setDisabled(true);
+      setStatusText("Нет изменений");
+    } else {
+      setDisabled(false);
+      setStatusText("");
+    }
+  }, [values.name, values.email]);
+
   const editProfile = (evt) => {
     evt.preventDefault();
-    handleUpdateUser({ name: values.name, email: values.email })
+    handleUpdateUser({ name: values.name, email: values.email }).catch(
+      (err) => {
+        setStatusText(err);
+        setDisabled(true);
+      }
+    );
+    setStatusText("Информация обновлена");
+    setTimeout(() => setIsEdit(false), 1000);
+  };
+
+  const handleEditBtn = () => {
+    setIsEdit(true);
+    setDisabled(true);
+    setStatusText("");
   };
 
   return (
     <>
-      <Header loggedIn={loggedIn}/>
+      <Header loggedIn={loggedIn} />
       <main className="page__content">
         <section className="profile">
           <h3 className="profile__title">Привет, {currentUser.name}!</h3>
@@ -50,6 +74,7 @@ function Profile({ handleUpdateUser, signOut, loggedIn }) {
                 value={values.name || ""}
                 pattern="[a-zA-Zа-яА-ЯёЁ\- ]{2,}"
                 errorMessage={errors.name}
+                disabled={!isEdit}
               />
               <hr className="profile__line"></hr>
               <InputForm
@@ -63,26 +88,50 @@ function Profile({ handleUpdateUser, signOut, loggedIn }) {
                 value={values.email || ""}
                 pattern="\S+@\S+\.\S+"
                 errorMessage={errors.email}
+                disabled={!isEdit}
               />
             </fieldset>
-            <button
-              className={`profile__btn-edit ${
-                isValid
-                  ? "profile__btn-edit_active"
-                  : "profile__btn-edit_disabled"
-              }`}
-              type="submit"
-              disabled={!isValid}
-            >
-              Редактировать
-            </button>
+            {isEdit ? (
+              <div className="auth-form__sbm-container">
+                <span
+                  className={!disabled ? "profile__success" : "profile__error"}
+                >
+                  {statusText}
+                </span>
+                <button
+                  className={`profile__btn-submit ${
+                    isValid && !disabled
+                      ? "profile__btn-submit_active"
+                      : "profile__btn-submit_disabled"
+                  }`}
+                  type="submit"
+                  disabled={!isValid}
+                >
+                  Сохранить
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
           </form>
-          <button className="profile__signout" onClick={signOut}>
-            Выйти из аккаунта
-          </button>
+          {isEdit ? (
+            ""
+          ) : (
+            <>
+              <button
+                className="profile__btn-edit"
+                type="submit"
+                onClick={handleEditBtn}
+              >
+                Редактировать
+              </button>
+              <button className="profile__signout" onClick={signOut}>
+                Выйти из аккаунта
+              </button>
+            </>
+          )}
         </section>
       </main>
-      <Footer />
     </>
   );
 }

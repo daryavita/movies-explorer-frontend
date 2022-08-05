@@ -1,10 +1,17 @@
 .profile {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 0;
     margin: 74px auto;
+    max-width: 410px; */
+
+    display: grid;
+    grid-template-rows: min-content 1fr min-content;
+    padding: 0;
+    margin: 74px auto;
     max-width: 410px;
+    height: calc(100vh - 226px)
 }
 
 .profile__title {
@@ -22,6 +29,7 @@
     padding: 0;
     display: flex;
     flex-direction: column;
+    justify-content:space-between ;
 }
 
 .profile__form-fieldset {
@@ -48,19 +56,11 @@
     text-align: center;
     border: none;
     background: none;
-    margin: 220px 0 0;
+    margin: 0;
     padding: 0;
 }
 
-.profile__btn-edit_disabled {
-    opacity: 0.8;
-}
-
-.profile__btn-edit_active {
-    opacity: 1;
-}
-
-.profile__btn-edit_active:hover {
+.profile__btn-edit:hover {
     opacity: 0.8;
     cursor: pointer;
     transition: 0.2s ease-out;
@@ -83,6 +83,59 @@
     opacity: 0.8;
     cursor: pointer;
     transition: 0.2s ease-out;
+}
+
+.profile__btn-submit {
+    background: #3456F3;
+    border-radius: 3px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #FFFFFF;
+    width: 100%;
+    height: 45px;
+    border: none;
+    margin: 0;
+    padding: 0;
+    transition: 0.2s ease-out;
+}
+
+.profile__btn-submit_disabled {
+    background: #ededed;
+    color: #C2C2C2;
+}
+
+.profile__btn-submit_active {
+    opacity: 1;
+}
+
+.profile__btn-submit_active:hover {
+    opacity: 0.8;
+    cursor: pointer;
+    transition: 0.2s ease-out;
+}
+
+.profile__error {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    color: #EE3465;
+    text-align: center;
+    padding: 0;
+    margin: 0 auto 10px;
+}
+
+.profile__success {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    color: #1ed60e;
+    text-align: center;
+    padding: 0;
+    margin: 0 auto 10px;
 }
 
 @media screen and (max-width: 660px) {
