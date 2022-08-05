@@ -8,40 +8,16 @@ import { useFormWithValidation } from "../../utils/Validation";
 import "./Login.css";
 
 function Login({ handleLogin }) {
-  // const [userData, setUserData] = useState({
-  //   email: "",
-  //   password: "",
-  // });
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setUserData((prev) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }));
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (!userData.email || !userData.password) {
-  //     console.log("пустые поля");
-  //     return;
-  //   }
-
-  //   handleLogin(userData.email, userData.password).catch((err) => {
-  //     setUserData((prev) => ({
-  //       ...prev,
-  //       message: err,
-  //     }));
-  //   });
-  // };
 
   const { values, handleChange, errors, isValid } = useFormWithValidation();
   const [errorText, setErrorText] = useState("");
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    handleLogin(values.email, values.password).catch((err) =>
+    console.log('Send!')
+    console.log('values.email', values.email)
+    handleLogin(values.email, values.password)
+    .catch((err) =>
       setErrorText(err)
     );
   };

@@ -21,15 +21,13 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { filterMovies } from "../../utils/filterMovies";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  console.log("savedMovies app", savedMovies);
-
   const history = useHistory();
   const location = useLocation();
+  const loggedIn = JSON.parse(localStorage.getItem("loggedIn")) || false;
 
   useEffect(() => {
     tokenCheck();
@@ -46,6 +44,7 @@ function App() {
             setError("Вы еще ничего не сохраняли");
             return;
           }
+          setError("");
           setSavedMovies(res);
           localStorage.setItem("savedMovies", JSON.stringify(res));
         })
@@ -57,7 +56,7 @@ function App() {
   const handleRegister = (name, email, password) => {
     return mainApi.register(name, email, password).then((res) => {
       console.log("res auth", res);
-      history.push("/movies");
+      handleLogin(email, password);
     });
   };
 
@@ -67,6 +66,7 @@ function App() {
         return;
       }
       localStorage.setItem("jwt", data.token);
+      localStorage.setItem("loggedIn", "true");
       tokenCheck();
       history.push("/movies");
     });
@@ -86,7 +86,7 @@ function App() {
               email: userData.email,
               id: userData._id,
             });
-            setLoggedIn(true);
+            localStorage.setItem("loggedIn", "true");
             history.push(location.pathname);
           }
         })
@@ -100,7 +100,7 @@ function App() {
     localStorage.removeItem("keyWord");
     localStorage.removeItem("isShortMovies");
     localStorage.removeItem("savedMovies");
-    setLoggedIn(false);
+    localStorage.removeItem("loggedIn");
     history.push("/signin");
   };
 
@@ -120,7 +120,6 @@ function App() {
     setIsLoading(true);
     setError("");
     const localSavedMovies = JSON.parse(localStorage.getItem("savedMovies"));
-    console.log("localSavedMovies", localSavedMovies);
     const searchResult = filterMovies(localSavedMovies, keyWord, isShortMovies);
     if (searchResult) {
       setIsLoading(false);
@@ -169,7 +168,11 @@ function App() {
       <div className="page">
         <Switch>
           <Route path="/signup">
-            <Register handleRegister={handleRegister} />
+            {loggedIn ? (
+              <Redirect to="/movies" />
+            ) : (
+              <Register handleRegister={handleRegister} />
+            )}
           </Route>
 
           <Route path="/signin">
