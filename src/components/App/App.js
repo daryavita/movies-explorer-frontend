@@ -18,13 +18,19 @@ import { useState } from "react";
 import { useEffect } from "react";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { filterMovies } from "../../utils/filterMovies";
+import { filterMovies, getShortMovies } from "../../utils/filterMovies";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [statusText, setStatusText] = useState("");
+  const [openedPopup, setOpenedPopup] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const localSavedMovies = JSON.parse(localStorage.getItem("savedMovies"));
   const history = useHistory();
   const location = useLocation();
   const loggedIn = JSON.parse(localStorage.getItem("loggedIn")) || false;
@@ -41,21 +47,24 @@ function App() {
         .getSavedMovies(jwt)
         .then((res) => {
           if (res.length === 0) {
-            setError("Вы еще ничего не сохраняли");
             return;
           }
           setError("");
           setSavedMovies(res);
+          setDisabled(false);
           localStorage.setItem("savedMovies", JSON.stringify(res));
         })
-        .catch((err) => console.log("errrr", err))
+        .catch((err) => console.log(`Ошибка ${err}`))
         .finally(setIsLoading(false));
     }
-  }, []);
+
+    if (savedMovies.length === 0 || !savedMovies) {
+      return setDisabled(true);
+    }
+  }, [location]);
 
   const handleRegister = (name, email, password) => {
     return mainApi.register(name, email, password).then((res) => {
-      console.log("res auth", res);
       handleLogin(email, password);
     });
   };
@@ -75,11 +84,9 @@ function App() {
   const tokenCheck = () => {
     if (localStorage.getItem("jwt")) {
       const jwt = localStorage.getItem("jwt");
-      console.log("jwt", jwt);
       mainApi
         .getUser(jwt)
         .then((userData) => {
-          console.log("userData", userData);
           if (userData) {
             setCurrentUser({
               name: userData.name,
@@ -113,13 +120,14 @@ function App() {
           name: res.name,
           email: res.email,
         });
+        setStatusText("Информация обновлена");
+        setOpenedPopup(true);
       });
   };
 
   const searchSaveMovies = (keyWord, isShortMovies) => {
     setIsLoading(true);
     setError("");
-    const localSavedMovies = JSON.parse(localStorage.getItem("savedMovies"));
     const searchResult = filterMovies(localSavedMovies, keyWord, isShortMovies);
     if (searchResult) {
       setIsLoading(false);
@@ -128,6 +136,31 @@ function App() {
     setIsLoading(false);
     setError("Ничего не найдено :(");
     setSavedMovies([]);
+  };
+
+  const toggleCheckboxSaveMovies = () => {
+    setError("");
+    setDisabled(false);
+    if (isChecked) {
+      if (localSavedMovies === null || localSavedMovies.length === 0) {
+        setIsChecked(!isChecked);
+        return;
+      }
+      setSavedMovies(localSavedMovies);
+      setIsChecked(!isChecked);
+      setError("");
+    } else {
+      const shortMovies = getShortMovies(savedMovies);
+      if (shortMovies) {
+        setSavedMovies(shortMovies);
+        setIsChecked(!isChecked);
+        setError("");
+        return;
+      }
+      setError("Ничего не найдено :(");
+      setSavedMovies([]);
+      setIsChecked(!isChecked);
+    }
   };
 
   const saveMovie = (dataMovie) => {
@@ -142,7 +175,7 @@ function App() {
             JSON.stringify([...savedMovies, savedMovie])
           );
         })
-        .catch((err) => console.log("err", err));
+        .catch((err) => console.log(`Ошибка ${err}`));
     }
   };
 
@@ -152,15 +185,18 @@ function App() {
       mainApi
         .deleteMovie(jwt, movieId)
         .then((res) => {
-          console.log("res del", res);
           const updateSaveMovie = savedMovies.filter((deletedMovie) => {
             return deletedMovie._id !== movieId;
           });
           setSavedMovies(updateSaveMovie);
           localStorage.setItem("savedMovies", JSON.stringify(updateSaveMovie));
         })
-        .catch((err) => console.log("err", err));
+        .catch((err) => console.log(`Ошибка ${err}`));
     }
+  };
+
+  const handleClosePopup = () => {
+    setOpenedPopup(false);
   };
 
   return (
@@ -200,6 +236,9 @@ function App() {
               searchSaveMovies={searchSaveMovies}
               deleteSaveMovie={deleteSaveMovie}
               isLoading={isLoading}
+              toggleCheckbox={toggleCheckboxSaveMovies}
+              isChecked={isChecked}
+              disabled={disabled}
             />
           </ProtectedRoute>
 
@@ -220,6 +259,12 @@ function App() {
             <NotFoundPage />
           </Route>
         </Switch>
+
+        <InfoTooltip
+          text={statusText}
+          opened={openedPopup}
+          close={handleClosePopup}
+        />
       </div>
     </CurrentUserContext.Provider>
   );

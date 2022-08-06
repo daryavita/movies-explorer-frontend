@@ -1,19 +1,23 @@
-import './InfoTooltip.css';
+import "./InfoTooltip.css";
 
-function InfoTooltip() {
-  return (
-    <div className="popup popup_opened">
-      <div className="popup__container">
-        <button
-          type="button"
-          className="popup__close"
-          aria-label="Закрыть"
-        ></button>
-        <div className="popup__img-status"/>
-        <h3 className="popup__title">Что-то пошло не так...</h3>
+function InfoTooltip({ text, opened, close }) {
+  if (opened) {
+    return (
+      <div className="popup">
+        <div className="popup__container">
+          <button
+            type="button"
+            className="popup__close"
+            aria-label="Закрыть"
+            onClick={close}
+          ></button>
+          <div className="popup__img-status" />
+          <h3 className="popup__title">{text}</h3>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  return;
 }
 
 export default InfoTooltip;

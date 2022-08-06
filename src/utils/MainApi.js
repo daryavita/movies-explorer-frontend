@@ -1,5 +1,3 @@
-import { MOVIES_API_BASE_URL } from "./MoviesApi";
-
 export const MAIN_API_BASE_URL = "https://api.explore.movies.nomoredomains.sbs";
 
 const checkResponse = (response) => {
@@ -8,7 +6,6 @@ const checkResponse = (response) => {
   }
 
   return response.json().then((res) => {
-    console.log("err-api", res.message);
     throw res.message;
   });
 };

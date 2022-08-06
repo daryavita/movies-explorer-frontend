@@ -26,21 +26,23 @@ function MoviesCard({
   };
 
   const handleSaveBtn = () => {
-    const image =
-      MOVIES_API_BASE_URL + movie.image.url || defaultImg;
+    const image = MOVIES_API_BASE_URL + movie.image.url || defaultImg;
     const thumbnail =
       MOVIES_API_BASE_URL + movie.image.formats.thumbnail.url || defaultImg;
+    const nameEN = movie.nameEN === null ? "Нет" : movie.nameEN;
+    const trailerLink =
+      movie.trailerLink === null ? defaultImg : movie.trailerLink;
 
     const dataMovie = {
-      country: movie.country || 'Нет',
-      director: movie.director || 'Нет',
+      country: movie.country || "Нет",
+      director: movie.director || "Нет",
       duration: movie.duration || 0,
-      year: movie.year || 'Нет',
-      description: movie.description || 'Нет',
+      year: movie.year || "Нет",
+      description: movie.description || "Нет",
       image: image,
-      trailerLink: movie.trailerLink || 'Нет',
-      nameRU: movie.nameRU || 'Названия пока нет',
-      nameEN: movie.nameEN || 'Нет',
+      trailerLink: trailerLink,
+      nameRU: movie.nameRU || "Названия пока нет",
+      nameEN: nameEN,
       thumbnail: thumbnail,
       movieId: movie.id,
     };
@@ -67,11 +69,13 @@ function MoviesCard({
           onClick={handleDelete}
         ></button>
       </div>
-      <img
-        className="movies-card__img"
-        src={isSaved ? movie.image : MOVIES_API_BASE_URL + movie.image.url}
-        alt={movie.nameRU.toLowerCase()}
-      ></img>
+      <a href={movie.trailerLink} target="_blank" rel="noreferrer">
+        <img
+          className="movies-card__img"
+          src={isSaved ? movie.image : MOVIES_API_BASE_URL + movie.image.url}
+          alt={movie.nameRU.toLowerCase()}
+        ></img>
+      </a>
     </article>
   );
 }

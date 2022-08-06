@@ -4,7 +4,13 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import { getInitialMovies, getLoadMovies } from "../../utils/constants";
 import "./MoviesCardList.css";
 
-function MoviesCardList({ isSaved, movies, saveMovie, deleteSaveMovie, savedMovies}) {
+function MoviesCardList({
+  isSaved,
+  movies,
+  saveMovie,
+  deleteSaveMovie,
+  savedMovies,
+}) {
   const width = useCurrentWidth();
 
   const [visibleMoviesCount, setVisibleMoviesCount] = useState(

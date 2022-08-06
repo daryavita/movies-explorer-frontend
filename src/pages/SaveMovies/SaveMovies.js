@@ -12,12 +12,21 @@ function SaveMovies({
   searchSaveMovies,
   deleteSaveMovie,
   isLoading,
+  toggleCheckbox,
+  isChecked,
+  disabled
 }) {
   return (
     <>
       <Header loggedIn={loggedIn} />
       <main className="page__content">
-        <SearchForm searchMovies={searchSaveMovies} isSaved={true} />
+        <SearchForm
+          searchMovies={searchSaveMovies}
+          isSaved={true}
+          toggleCheckbox={toggleCheckbox}
+          isChecked={isChecked}
+          disabled={disabled}
+        />
         <p className="movies__error">{error}</p>
         <MoviesCardList
           isSaved={true}

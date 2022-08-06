@@ -40,8 +40,7 @@ function Profile({ handleUpdateUser, signOut, loggedIn }) {
         setDisabled(true);
       }
     );
-    setStatusText("Информация обновлена");
-    setTimeout(() => setIsEdit(false), 1000);
+    setTimeout(() => setIsEdit(false), 2000);
   };
 
   const handleEditBtn = () => {

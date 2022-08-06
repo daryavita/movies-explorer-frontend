@@ -1,23 +1,17 @@
-import { useContext } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import InputForm from "../../components/InputForm/InputForm";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import logo from "../../images/logo.svg";
 import { useFormWithValidation } from "../../utils/Validation";
 import "./Login.css";
 
 function Login({ handleLogin }) {
-
   const { values, handleChange, errors, isValid } = useFormWithValidation();
   const [errorText, setErrorText] = useState("");
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log('Send!')
-    console.log('values.email', values.email)
-    handleLogin(values.email, values.password)
-    .catch((err) =>
+    handleLogin(values.email, values.password).catch((err) =>
       setErrorText(err)
     );
   };

@@ -2,7 +2,7 @@ import "./Navigation.css";
 import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 
-function Navigation({ main }) {
+function Navigation({ loggedIn }) {
   const [burgerMenu, setBurgerMenu] = useState(false);
 
   const openBurgerMenu = () => {
@@ -15,7 +15,9 @@ function Navigation({ main }) {
 
   return (
     <>
-      <nav className={main ? "navigation navigation_type_main" : "no-display"}>
+      <nav
+        className={loggedIn ? "no-display" : "navigation navigation_type_main"}
+      >
         <Link
           to="/signup"
           className="navigation__link navigation__link_hover navigation__link_active"
@@ -29,7 +31,9 @@ function Navigation({ main }) {
         </Link>
       </nav>
 
-      <nav className={main ? "no-display" : "navigation navigation_type_all"}>
+      <nav
+        className={loggedIn ? "navigation navigation_type_all" : "no-display"}
+      >
         <NavLink
           to="/movies"
           activeClassName="navigation__link_active"
@@ -55,7 +59,7 @@ function Navigation({ main }) {
       </nav>
 
       <button
-        className={main ? "no-display" : "navigation__menu-btn"}
+        className={loggedIn ? "navigation__menu-btn" : "no-display"}
         onClick={openBurgerMenu}
       ></button>
 

@@ -1,28 +1,22 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-import * as api from "../../utils/MoviesApi";
 import "./SearchForm.css";
 import { useEffect, useState } from "react";
 import { useFormWithValidation } from "../../utils/Validation";
 
-function SearchForm({ searchMovies, isSaved }) {
+function SearchForm({ searchMovies, isSaved, isChecked, toggleCheckbox, disabled }) {
   const { values, handleChange, isValid } = useFormWithValidation();
   const [errorText, setErrorText] = useState("");
-  const [isShortMovies, setIsShortMovies] = useState(false);
 
   useEffect(() => {
-    if(!isSaved) {
+    if (!isSaved) {
       const localKeyWord = localStorage.getItem("keyWord");
-      const localCheckbox = localStorage.getItem("isShortMovies");
-  
-      if (localKeyWord && localCheckbox) {
+
+      if (localKeyWord) {
         try {
           const parsedKeyWord = JSON.parse(localKeyWord);
-          const parsedCheckbox = JSON.parse(localCheckbox);
           values.keyWord = parsedKeyWord;
-          setIsShortMovies(parsedCheckbox);
         } catch (err) {
           localStorage.removeItem("keyWord");
-          localStorage.removeItem("isShortMovies");
         }
       }
     }
@@ -30,13 +24,12 @@ function SearchForm({ searchMovies, isSaved }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const keyword = values.keyWord.toLowerCase();
-    searchMovies(keyword, isShortMovies);
-    setErrorText("Нужно ввести ключевое слово");
-  };
-
-  const handleShortMovies = () => {
-    setIsShortMovies(!isShortMovies);
+    if (isValid) {
+      const keyword = values.keyWord.toLowerCase();
+      searchMovies(keyword)
+    } else {
+      setErrorText("Нужно ввести ключевое слово");
+    }
   };
 
   return (
@@ -63,8 +56,10 @@ function SearchForm({ searchMovies, isSaved }) {
         ></button>
       </form>
       <FilterCheckbox
-        handleShortMovies={handleShortMovies}
-        isShortMovies={isShortMovies}
+
+        toggleCheckbox={toggleCheckbox}
+        isChecked={isChecked}
+        disabled={disabled}
       />
       <hr className="search__line"></hr>
     </section>

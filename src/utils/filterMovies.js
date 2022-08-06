@@ -3,7 +3,6 @@ export const filterMovies = (movies, keyWord, isShortMovies) => {
   if (isShortMovies) {
     return (filtredMoviesArr = getShortMovies(filtredMoviesArr));
   } else {
-    console.log('filtredMoviesArr', filtredMoviesArr)
     return filtredMoviesArr;
   }
 };
@@ -21,7 +20,7 @@ const getMoviesByKeyWord = (movies, keyWord) => {
   return moviesByKeyword;
 };
 
-const getShortMovies = (moviesByKeyword) => {
+export const getShortMovies = (moviesByKeyword) => {
   let shortMovies = [];
   moviesByKeyword.map((movie) => {
     if (movie.duration <= 40) {

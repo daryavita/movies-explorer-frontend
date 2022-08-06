@@ -68,6 +68,7 @@
     text-align: right;
     outline: none;
     grid-area: input;
+    color: #000;
 }
 
 .input__caption_profile  {

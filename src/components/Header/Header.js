@@ -1,9 +1,9 @@
 import "./Header.css";
 import logo from "../../images/logo.svg";
 import Navigation from "../Navigation/Navigation";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function Header({ main }) {
+function Header({ loggedIn, main }) {
   const headerClassName = `header ${main ? "header_theme_gray" : ""}`;
 
   return (
@@ -12,7 +12,7 @@ function Header({ main }) {
         <Link to="/">
           <img className="header__logo" src={logo} alt="logo" />
         </Link>
-        <Navigation main={main} />
+        <Navigation loggedIn={loggedIn} />
       </header>
     </>
   );
