@@ -11,5 +11,7 @@
 
 ## Ссылки
 Публичный IP-адрес приложения: 51.250.83.39
+
 Домен: explore.movies.nomoredomains.sbs
+
 Посмотреть: https://explore.movies.nomoredomains.sbs/saved-movies
