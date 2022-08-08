@@ -8,7 +8,7 @@
     margin: 0;
     display: grid;
     gap: 30px 24px;
-    grid-template-columns: repeat(auto-fit, minmax(364px, 1fr));
+    grid-template-columns: repeat(auto-fit, 364px);
     list-style: none;
     justify-content: center;
 }
@@ -44,17 +44,17 @@
     }
 
     .cards-list__container {
-        grid-template-columns: repeat(auto-fit, minmax(339px, 1fr));
+        grid-template-columns: repeat(auto-fit, 339px);
     }
 }
 
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 630px) {
     .cards-list {
         margin: 40px 10px 80px;
     }
 
     .cards-list__container {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, 300px);
         gap: 16px;
     }
 }

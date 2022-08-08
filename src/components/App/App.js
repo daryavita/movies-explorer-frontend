@@ -108,7 +108,8 @@ function App() {
     localStorage.removeItem("isShortMovies");
     localStorage.removeItem("savedMovies");
     localStorage.removeItem("loggedIn");
-    history.push("/signin");
+    localStorage.removeItem("movies");
+    history.push("/");
   };
 
   const handleUpdateUser = (currentUser) => {
@@ -126,6 +127,9 @@ function App() {
   };
 
   const searchSaveMovies = (keyWord, isShortMovies) => {
+    if (localSavedMovies === null || localSavedMovies.length === 0) {
+      return;
+    }
     setIsLoading(true);
     setError("");
     const searchResult = filterMovies(localSavedMovies, keyWord, isShortMovies);

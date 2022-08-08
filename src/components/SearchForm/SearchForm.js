@@ -1,10 +1,16 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import "./SearchForm.css";
 import { useEffect, useState } from "react";
-import { useFormWithValidation } from "../../utils/Validation";
 
-function SearchForm({ searchMovies, isSaved, isChecked, toggleCheckbox, disabled }) {
-  const { values, handleChange, isValid } = useFormWithValidation();
+function SearchForm({
+  searchMovies,
+  isSaved,
+  isChecked,
+  toggleCheckbox,
+  disabled,
+}) {
+  const [keyWord, setKeyWord] = useState("");
+  const [isValid, setIsValid] = useState(true);
   const [errorText, setErrorText] = useState("");
 
   useEffect(() => {
@@ -14,7 +20,7 @@ function SearchForm({ searchMovies, isSaved, isChecked, toggleCheckbox, disabled
       if (localKeyWord) {
         try {
           const parsedKeyWord = JSON.parse(localKeyWord);
-          values.keyWord = parsedKeyWord;
+          setKeyWord(parsedKeyWord);
         } catch (err) {
           localStorage.removeItem("keyWord");
         }
@@ -25,11 +31,15 @@ function SearchForm({ searchMovies, isSaved, isChecked, toggleCheckbox, disabled
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (isValid) {
-      const keyword = values.keyWord.toLowerCase();
-      searchMovies(keyword)
+      searchMovies(keyWord.toLowerCase());
     } else {
       setErrorText("Нужно ввести ключевое слово");
     }
+  };
+
+  const handleChange = (evt) => {
+    setKeyWord(evt.target.value);
+    setIsValid(evt.target.checkValidity());
   };
 
   return (
@@ -41,7 +51,7 @@ function SearchForm({ searchMovies, isSaved, isChecked, toggleCheckbox, disabled
           placeholder="Фильм"
           type="text"
           onChange={handleChange}
-          value={values.keyWord || ""}
+          value={keyWord || ""}
           required
         ></input>
         <span
@@ -56,7 +66,6 @@ function SearchForm({ searchMovies, isSaved, isChecked, toggleCheckbox, disabled
         ></button>
       </form>
       <FilterCheckbox
-
         toggleCheckbox={toggleCheckbox}
         isChecked={isChecked}
         disabled={disabled}

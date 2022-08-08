@@ -1,8 +1,6 @@
-import { useContext } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import InputForm from "../../components/InputForm/InputForm";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import logo from "../../images/logo.svg";
 import { useFormWithValidation } from "../../utils/Validation";
 import "./Register.css";

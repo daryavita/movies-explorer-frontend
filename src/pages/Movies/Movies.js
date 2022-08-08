@@ -109,6 +109,7 @@ function Movies({ loggedIn, saveMovie, deleteSaveMovie, savedMovies }) {
         setFilteredMovies(shortMovies);
         setIsChecked(!isChecked);
         setError("");
+        return
       }
       setError("Ничего не найдено :(");
       setFilteredMovies([]);

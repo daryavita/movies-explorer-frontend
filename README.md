@@ -9,7 +9,12 @@
 
     npm run build
 
+
 ## Ссылки
-Публичный IP-адрес приложения: 51.250.83.39
+Публичный IP-адрес приложения: 51.250.91.134
 
 Домен: explore.movies.nomoredomains.sbs
+
+Посмотреть: https://explore.movies.nomoredomains.sbs/saved-movies
+
+Ссылка на макет:https://www.figma.com/file/MFW0a771WZkryzZGzkDzJn/Diploma-Copy?fuid=1035151733102728427
