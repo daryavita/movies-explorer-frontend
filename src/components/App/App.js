@@ -109,6 +109,7 @@ function App() {
     localStorage.removeItem("savedMovies");
     localStorage.removeItem("loggedIn");
     localStorage.removeItem("movies");
+    setSavedMovies([]);
     history.push("/");
   };
 
