@@ -10,7 +10,7 @@ function SearchForm({
   disabled,
 }) {
   const [keyWord, setKeyWord] = useState("");
-  const [isValid, setIsValid] = useState(true);
+  const [isValid, setIsValid] = useState(false);
   const [errorText, setErrorText] = useState("");
 
   useEffect(() => {
