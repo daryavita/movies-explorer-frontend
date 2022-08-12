@@ -9,15 +9,17 @@
     align-items: center;
     font-family: 'Inter', Arial, Helvetica, sans-serif;
     display: flex;
-    visibility: hidden;
-    opacity: 0;
+    /* visibility: hidden;
+    opacity: 0; */
     transition: visibility 0.2s, opacity 0.2s linear;
     cursor: pointer;
-}
-
-.popup_opened {
     visibility: visible;
     opacity: 1;
+}
+
+.popup_closed {
+    visibility: hidden;
+    opacity: 0;
 }
 
 .popup__container {
@@ -57,7 +59,7 @@
 }
 
 .popup__img-status {
-    background-image: url(../../images/error.svg);
+    background-image: url(../../images/success.svg);
     background-repeat: no-repeat;
     background-size: contain;
     width: 100px;

@@ -21,6 +21,7 @@
     grid-template-columns: minmax(min-content, 1086px) 44px;
     gap: 10px;
     align-items: center;
+    position: relative;
 }
 
 .search__input {
@@ -35,6 +36,28 @@
     padding: 0 0 0 16px;
     margin: 0;
     outline: none;
+}
+
+.search__input:focus {
+    border-bottom: 1px solid #3456F3;;
+}
+
+.search__error {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #EE3465;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    left: 16px;
+    bottom: -15px;
+    display: none;
+}
+
+.search__error_visible {
+    display: block;
 }
 
 .search__input::placeholder {

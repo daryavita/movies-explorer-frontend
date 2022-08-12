@@ -7,10 +7,10 @@ import Promo from "../../components/Promo/Promo";
 import Techs from "../../components/Techs/Techs";
 import "./Main.css";
 
-function Main() {
+function Main({ loggedIn }) {
   return (
     <>
-      <Header main={true} />
+      <Header loggedIn={loggedIn} main={true} />
       <main className="page__content">
         <Promo />
         <AboutProject />

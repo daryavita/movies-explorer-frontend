@@ -170,7 +170,7 @@
         border: none;
         width: 44px;
         height: 44px;
-        background-color: #FAFAFA;
+        background-color: rgb(255 255 255 / 0%);
         justify-self: right;
     }
 }
