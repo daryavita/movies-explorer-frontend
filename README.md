@@ -15,8 +15,6 @@
 
 Домен: explore.movies.nomoredomains.sbs
 
-Посмотреть: https://explore.movies.nomoredomains.sbs/saved-movies
+Проект выложен на ВМ Яндекс Облака: https://explore.movies.nomoredomains.sbs/saved-movies
 
-Ссылка на пулл реквест: https://github.com/daryavita/movies-explorer-frontend/pull/2
-
-Ссылка на макет:https://www.figma.com/file/MFW0a771WZkryzZGzkDzJn/Diploma-Copy?fuid=1035151733102728427
+Ссылка на макет: https://www.figma.com/file/MFW0a771WZkryzZGzkDzJn/Diploma-Copy?fuid=1035151733102728427
