@@ -24,6 +24,6 @@
 
 Домен: explore.movies.nomoredomains.sbs
 
-Проект выложен на ВМ Яндекс Облака: https://explore.movies.nomoredomains.sbs/saved-movies
+Проект выложен на ВМ Яндекс Облака: https://explore.movies.nomoredomains.sbs/
 
 Ссылка на макет: https://www.figma.com/file/MFW0a771WZkryzZGzkDzJn/Diploma-Copy?fuid=1035151733102728427
